@@ -38,7 +38,8 @@ if __name__ == '__main__':
         group_node.MyGroupNode,
         widget_nodes.DropdownMenuNode,
         widget_nodes.TextInputNode,
-        widget_nodes.CheckboxNode
+        widget_nodes.CheckboxNode,
+        widget_nodes.CustomWidgetNode
     ])
 
     # show the node graph widget.
@@ -76,6 +77,9 @@ if __name__ == '__main__':
 
     # create group node.
     n_group = graph.create_node('nodes.group.MyGroupNode')
+
+    # create node with custom widget embedded.
+    n_custom_widget = graph.create_node('nodes.widget.CustomWidgetNode')
 
     # make node connections.
 

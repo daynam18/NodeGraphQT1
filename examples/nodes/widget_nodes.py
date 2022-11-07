@@ -1,4 +1,5 @@
-from NodeGraphQt import BaseNode
+from NodeGraphQt import BaseNode, NodeBaseWidget
+from Qt import QtWidgets
 
 
 class DropdownMenuNode(BaseNode):
@@ -68,3 +69,44 @@ class CheckboxNode(BaseNode):
         # create input and output port.
         self.add_input('in', color=(200, 100, 0))
         self.add_output('out', color=(0, 100, 200))
+
+
+class NodeWidget(QtWidgets.QWidget):
+
+    def __init__(self, parent=None):
+        super(NodeWidget, self).__init__(parent)
+
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(QtWidgets.QPushButton('Test'))
+        layout.addWidget(QtWidgets.QComboBox())
+        layout.addWidget(QtWidgets.QLabel('Node Label'))
+        layout.setContentsMargins(0, 0, 0, 0)
+
+
+class NodeWidgetWrapper(NodeBaseWidget):
+
+    def __init__(self, parent=None):
+        super(NodeWidgetWrapper, self).__init__(parent)
+        self.set_custom_widget(NodeWidget())
+
+    def get_value(self):
+        return
+
+    def set_value(self, text):
+        return
+
+
+class CustomWidgetNode(BaseNode):
+
+    # unique node identifier.
+    __identifier__ = 'nodes.widget'
+
+    # initial default node name.
+    NODE_NAME = 'custom widget'
+
+    def __init__(self):
+        super(CustomWidgetNode, self).__init__()
+        self.add_custom_widget(NodeWidgetWrapper(self.view), tab="Custom")
+        # create input and output port.
+        self.add_input('in')
+        # self.add_output('out')
